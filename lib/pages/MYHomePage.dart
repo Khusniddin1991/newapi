@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui8/model/Post.dart';
+import 'package:ui8/model/emp_list.dart';
+import 'package:ui8/model/seprate_employe.dart';
 import 'package:ui8/services/services.dart';
 
 
@@ -23,52 +25,52 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Post post = new Post(age: 2, name: 'kaml', status: 'nomal', id: 21);
-    apiPost(post);
-
-    apiDEL();
+    // apiget();
+    apiOne(1);
   }
-
-  void apiPUT(Post post) async {
-    await Network.PUT(Network.API_CREATE + post.id.toString(), Network.params())
-        .then((value) =>
-    {
-      print(value),
-      show(value)
-    });
-  }
-
-  void apiDEL() async {
-    await Network.DEL(Network.API_DELETE, Network.params()).then((value) =>
-    {
-      print(value),
-      show(value)
-    });
-  }
-
+  // apiget(){
   //
-  apiPost(post) async {
-    await Network.POST(Network.API_POST, Network.paramsPOST(post)).then((
-        value) =>
-    {
-      print(value),
-      show(value)
-    });
-    //
-    apiPUT(post) async {
-      await Network.PUT(Network.API_POST, Network.paramsPUT(post)).then((
-          value) =>
-      {
-        print(value),
-        show(value)
-      });
+  //   Network.GET(Network.API_GET, Network.params()).then((response) =>{
+  //     // show(value),
+  //   _showResponse(response)
+  //
+  //   }
+  //   );
+  // }
+  //
+  //
+  apiOne(int id){
+
+    Network.GET(Network.API_GETs+id.toString(), Network.params()).then((response) =>{
+      // show(value),
+      _showResponse(response),
+      print(response)
+
     }
+    );
+  }
+
+
+
+
+
+  void _showResponse(String  response){
+    // EmpList info=Network.parseList(response);
+    // print(info.data.length);
+    EmpOne info=Network.parseOne(response);
+    print(info.data.age);
+
+  }
+
+
+
+
 
 
     @override
     Widget build(BuildContext context) {
       return Scaffold(backgroundColor: Colors.white,
-        body: Center(child: Text(data != null ? data : 'there is no data'),),
+        body: Text(''),
       );
     }
   }
@@ -80,4 +82,3 @@ class _MyHomePageState extends State<MyHomePage> {
     throw UnimplementedError();
   }
 
-}
