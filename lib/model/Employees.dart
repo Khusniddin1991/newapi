@@ -1,12 +1,12 @@
-class Employee{
+class Employees{
 
   String employee_name,profile_image;
- String employee_age, employee_salary;
+  int employee_age, employee_salary;
 
 
-  Employee({this.employee_name,this.employee_age,this.profile_image,this.employee_salary});
+  Employees({this.employee_name,this.employee_age,this.profile_image,this.employee_salary});
 
-  Employee.fromJson(Map <String,dynamic> json){
+  Employees.fromJson(Map <String,dynamic> json){
     // this.id=json[id];
     this.employee_name=json['employee_name'];
     this.employee_age=json['employee_age'];

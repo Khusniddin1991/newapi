@@ -3,20 +3,22 @@
 
 import 'package:ui8/model/employee.dart';
 
+import 'Employees.dart';
+
 class EmpOne{
-  String massage;
+  String message;
   String status;
-  Employee data;
+  Employees data;
 
   EmpOne.fromJson(Map <String,dynamic> json):
-    data=Employee.fromJson(json['data']),
-    massage=json['massage'],
+    data=Employees.fromJson(json['data']),
+    message=json['message'],
     status=json['status'];
 
 
 
   Map <String,dynamic> toJson()=>{
-  'massage':  massage,
+  'message':  message,
     'status':  status,
     'data':data.toJson()
 

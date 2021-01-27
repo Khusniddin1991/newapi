@@ -1,8 +1,16 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:ui8/model/Post.dart';
 import 'package:ui8/model/emp_list.dart';
+// import 'package:ui8/model/employeaa.dart';
+import 'package:ui8/model/employee.dart';
 import 'package:ui8/model/seprate_employe.dart';
+// import 'package:ui8/pages/eploye.dart';
+import 'package:ui8/pages/newRoute.dart';
 import 'package:ui8/services/services.dart';
+
+import 'oneobject.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -12,6 +20,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String data;
+
+
+
+  List<Employee> items=List();
 
 
   show(String value) {
@@ -25,58 +37,69 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // apiget();
-    apiOne(1);
+    apiget();
+    // apiOne(1);
   }
-  // apiget(){
-  //
-  //   Network.GET(Network.API_GET, Network.params()).then((response) =>{
-  //     // show(value),
-  //   _showResponse(response)
-  //
-  //   }
-  //   );
-  // }
-  //
-  //
-  apiOne(int id){
+  apiget(){
 
-    Network.GET(Network.API_GETs+id.toString(), Network.params()).then((response) =>{
-      // show(value),
-      _showResponse(response),
+    Network.GET(Network.API_GET, Network.params()).then((response) =>{
+    _showResponse(response),
       print(response)
-
     }
     );
   }
+   _showResponse(String  response){
+    if(response!=null){
+    EmpList info= Network.parseList(response);
 
+     print(info.data.first.employee_name);
+    setState(() {
+      items=info.data;
+    });
 
-
-
-
-  void _showResponse(String  response){
-    // EmpList info=Network.parseList(response);
-    // print(info.data.length);
-    EmpOne info=Network.parseOne(response);
-    print(info.data.age);
-
+   } else{
+      print('try again later');
+    }
   }
-
-
-
-
-
 
     @override
     Widget build(BuildContext context) {
       return Scaffold(backgroundColor: Colors.white,
-        body: Text(''),
-      );
+        body:Container(child: ListView.builder(itemCount:items.length,itemBuilder:(ctx,i){
+          Employee emo=items[i];
+          return GestureDetector(
+            onTap: (){
+           Navigator.push(context,MaterialPageRoute(builder:(ctx)=>OneObject()));
+            },
+            child: Card(
+              child: itemFunction(items[i]
+
+              ),
+            ),
+          );
+        })
+        ),);
+
     }
+
+  Widget itemFunction(Employee value) {
+    return Container(
+         padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(value.employee_name+'('+value.employee_age.toString()+")",style: TextStyle(fontSize:20),),
+          SizedBox(height: 10,),
+          Text(value.employee_salary.toString())
+        ],
+      ),
+    );
+  }
   }
 
 
-  @override
+
+@override
   Widget build(BuildContext context) {
     // TODO: implement build
     throw UnimplementedError();

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ui8/pages/MYHomePage.dart';
+import 'package:ui8/pages/for%20post.dart';
+import 'package:ui8/pages/hero.dart';
+import 'package:ui8/pages/newRoute.dart';
+import 'package:ui8/pages/oneobject.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,6 +14,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        RoutPage.id:(ctx)=>RoutPage()
+      },
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -27,7 +34,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      home: OneObjectss(),
     );
   }
 }
